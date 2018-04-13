@@ -1,4 +1,6 @@
-/* styles in src/style directory are applied to the whole page */
+@import url("../../node_modules/noty/lib/noty.css");
+@import url("../../node_modules/noty/lib/themes/sunset.css");
+
 body {
   background: whitesmoke;
   color: darkcyan;
@@ -8,13 +10,8 @@ body {
 	justify-content: center;
 }
 
-
 .form{
-  margin: 200px;
-}
-
-label {
-
+  margin-top: 200px;
 }
 
 .date-preview{
@@ -30,4 +27,5 @@ label {
   overflow: hidden;
   color: grey;
   min-width: 60px;
+  background-color: white;
 }

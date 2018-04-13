@@ -1,20 +1,21 @@
-import app from './app';
+import {validYear} from './app';
 
 describe('app', () => {
 
-  describe('AppCtrl', () => {
-    let ctrl;
+  describe('Input Validation', () => {
 
-    beforeEach(() => {
-      angular.mock.module(app);
+    const notyMock = {};
+    notyMock.show = () => {};
 
-      angular.mock.inject(($controller) => {
-        ctrl = $controller('AppCtrl', {});
-      });
+    it('should be a valid year', () => {
+
+
+      expect(validYear(notyMock, "2001")).toBe(true);
     });
 
-    it('should contain the starter url', () => {
-      expect(ctrl.url).toBe('https://github.com/preboot/angular-webpack');
+    it('should be a valid year', () => {
+
+      expect(validYear(notyMock, "abc")).toBe(false);
     });
   });
 });

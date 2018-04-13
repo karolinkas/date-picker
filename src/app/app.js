@@ -1,47 +1,102 @@
 import angular from 'angular';
 import moment from 'moment';
+import Noty from 'noty';
 
 import '../style/app.css';
 
+export function validYear (noty, year){
+
+	if (year){
+
+		const onlyNumbers = new RegExp("^[0-9]+$");
+
+		if ( year.length > 4){
+			
+			noty.show();
+
+			return false;
+		
+		} else if ( year != "" && !onlyNumbers.test(year) ){
+
+			noty.show();
+
+			return false;
+
+		} else {
+
+			return true;
+
+		}
+	}
+}
+
 angular.module('app', [])
-  .directive('datePicker', () => {
-    function link ($scope){
-        $scope.allDays = [1, 2, 4, 5, 13];
-        $scope.allMonths = [1, 12, 10, 5, 4];
-        $scope.chosenYear = undefined;
+	.directive('datePicker', () => {
+		function link ($scope){
 
-        $scope.updateDay = (day) => {
-          console.log(day);
-          $scope.currentDate = moment($scope.currentDate).day(day);
-        };
+				// create arrays that population drop downs
+				function getDaysForCurrentMonth(){
 
-        $scope.updateMonth = (month) => {
-          console.log(month);
-          $scope.currentDate = moment($scope.currentDate).month(month);
-        };
+					const numberOfDaysPerMonth =  moment($scope.currentDate).daysInMonth();
+					const range = (start, end) => Array.from({length: (end - start)}, (value, key) => (key + start).toString());
+					return range(1, numberOfDaysPerMonth + 1);
+				}
 
-        $scope.updateYear = (year) => {
-          console.log(year);
-          $scope.currentDate = moment($scope.currentDate).year(year);
-        };
+				function initSelectOptions (){
+					// initialise select options
+					$scope.allDays = getDaysForCurrentMonth();
+					$scope.allMonths = moment.monthsShort();
 
-       $scope.formatDate = (date) => {
-          return moment(date).format("MMMM Do YYYY");
-        };
+				}
+				
+				function initUserInput (){
+						// we are always initialising to current date
+						// and store it as a time stamp
+						$scope.currentDate = new Date().getTime();
 
-        //we are always initialising to current date
-        $scope.currentDate = moment(new Date());
+						// initialise first selection
+						$scope.selectedYear = moment($scope.currentDate,).format("YYYY");
+						$scope.selectedDay = moment($scope.currentDate).format("DD");
+						$scope.selectedMonth =  moment($scope.currentDate).format("MMM");
 
-        $scope.selectedYear = $scope.currentDate.year();
-        $scope.selectedDay = $scope.currentDate.day().toString();
-        $scope.selectedMonth =  $scope.currentDate.month().toString();
+				}
+				
+				$scope.updateDay = (day) => {
+					$scope.currentDate = moment($scope.currentDate).day(day);
+				};
 
-        console.log($scope.selectedYear, $scope.selectedMonth, $scope.selectedDay);
-    }
-    return {
-      template: require('./views/date-picker.directive.view.html'),
-      link: link
-    };
-  });
+				$scope.updateMonth = (month) => {
+					$scope.currentDate = moment($scope.currentDate).month(month);
+					$scope.allDays = getDaysForCurrentMonth();
+				};
+
+				$scope.updateYear = (year) => {
+					
+					//configure notifications for input validation
+					const noty = new Noty({
+						text: 'This is not a valid year.',
+						theme: "sunset",
+						timeout: 1000
+					});
+
+					if (validYear(noty, year)){
+						$scope.currentDate = moment($scope.currentDate).year(year);
+					}
+					
+				};
+
+				$scope.formatDate = (date) => {
+					return moment(date).format("MMMM Do YYYY");
+				};
+
+				initUserInput();
+				initSelectOptions();
+
+		}
+		return {
+			template: require('./views/date-picker.directive.view.html'),
+			link: link
+		};
+	});
 
 export default 'app';

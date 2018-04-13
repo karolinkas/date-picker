@@ -9,6 +9,6 @@
   </select>
 
   <label>Year</label>
-  <input ng-change="updateYear(selectedYear)" class="user-input" ng-model="selectedYear" ng-change="getYear()" placeholder="Enter A Year" type="number" required/>
+  <input ng-change="updateYear(selectedYear)" class="user-input" ng-model="selectedYear" placeholder="Enter A Year" max="9999" required/>
   <div class="date-preview" >{{formatDate(currentDate)}}</div>
 </div> 
