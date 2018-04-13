@@ -1,22 +1,33 @@
 /* styles in src/style directory are applied to the whole page */
 body {
-  background: #0147A7;
-  color: #fff;
+  background: whitesmoke;
+  color: darkcyan;
+  font-family: Sans-Serif;
+	display:flex;
+	align-items: center;
+	justify-content: center;
 }
 
-a {
-  color: #03A9F4;
+
+.form{
+  margin: 200px;
 }
 
-main {
-  padding: 1em;
-  font-family: Arial, Helvetica, sans-serif;
-  text-align: center;
-  margin-top: 50px;
-  display: block;
+label {
+
 }
 
-footer {
-  text-align: center;
-  font-size: 0.8em;
+.date-preview{
+  margin-top: 40px;
+}
+
+.user-input{
+  border: 2px solid grey;
+  border-radius: 40px;
+  height: 40px;
+  padding: 0 11px;
+  font-size: 14px;
+  overflow: hidden;
+  color: grey;
+  min-width: 60px;
 }

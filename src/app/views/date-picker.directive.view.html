@@ -1,0 +1,14 @@
+<div class="form">
+
+  <label>Day</label>
+  <select ng-change="updateDay(selectedDay)" class="user-input" ng-model="selectedDay" ng-options="day for  day in allDays" required>
+  </select>
+
+  <label>Month</label>
+  <select ng-change="updateMonth(selectedMonth)" class="user-input" ng-model="selectedMonth" ng-options="month for month in allMonths" required>
+  </select>
+
+  <label>Year</label>
+  <input ng-change="updateYear(selectedYear)" class="user-input" ng-model="selectedYear" ng-change="getYear()" placeholder="Enter A Year" type="number" required/>
+  <div class="date-preview" >{{formatDate(currentDate)}}</div>
+</div> 
