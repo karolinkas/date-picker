@@ -16,11 +16,11 @@ $ npm install
 # start the server (build the files and watch for changes)
 $ npm start
 
-# run unit tests
-$ npm test
+# run unit tests for client and watch
+$ npm run testclient
 
 # watch tests
-$ npm run test-watch
+$ npm run testserver
 ```
 
 go to [http://localhost:8080](http://localhost:8080) in your browser.

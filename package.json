@@ -1,21 +1,27 @@
 {
-  "name": "angular-webpack-workflow",
+  "name": "Dateexpress",
   "version": "1.1.0",
-  "description": "A workflow for Angular made with Webpack",
+  "description": "Date picker and simple express server",
+  "main": "server/server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/karolinkas/date-picker"
+  },
   "scripts": {
     "build": "rimraf dist && webpack --bail --progress --profile",
-    "test": "karma start",
-    "test-watch": "karma start --auto-watch --no-single-run",
+    "testclient": "karma start --auto-watch --no-single-run",
+    "testserver": "mocha -- server/test/*.js",
     "web": "webpack-dev-server --history-api-fallback --inline --progress",
-    "server": "nodemon server.js",
+    "server": "nodemon server/server.js",
     "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run web\""
-    
   },
   "dependencies": {
     "angular": "^1.5.0",
+    "chai": "4.1.2",
+    "express": "^4.16.2",
+    "mocha": "5.1.0",
     "moment": "2.22.0",
-    "noty": "3.2.0-beta",
-    "express": "^4.16.2"
+    "noty": "3.2.0-beta"
   },
   "devDependencies": {
     "angular-mocks": "^1.5.0",
@@ -43,6 +49,7 @@
     "phantomjs-prebuilt": "^2.1.4",
     "postcss-loader": "1.2.2",
     "raw-loader": "^0.5.1",
+    "request": "2.85.0",
     "rimraf": "^2.5.1",
     "style-loader": "^0.13.0",
     "webpack": "2.2.0",
