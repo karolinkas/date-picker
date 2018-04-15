@@ -1,7 +1,19 @@
+function fileConversion (processTime){
+
+    console.log("processing");
+
+    return new Promise(function(resolve, reject){
+        setTimeout(function(){
+            resolve();
+        }, processTime);
+    });
+}
+
 
 function Queue () {
     
     this.queue = [];
+    this.requesting = false;
 
     this.validRequest = function (request) {
 
@@ -13,13 +25,27 @@ function Queue () {
         } else {
             
             return true;
-        }
-        
-        
+        }    
     
     };
 
 };
+
+Queue.prototype.processRequests = function (request) {
+
+    this.requesting = true;
+    var that = this;
+
+    const promise =  Promise.all(this.queue.map( function (request) {
+        
+        return fileConversion(request.processTime).then(function (){
+            that.queue.pop();
+        });
+
+    }));
+
+    return promise;
+}
 
 Queue.prototype.addRequest = function (request) {
 

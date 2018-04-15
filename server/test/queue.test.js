@@ -48,6 +48,7 @@ describe('Check all functionalities of request queue', function() {
     var instance = new Queue();
 
     instance.addRequest(request);
+    instance.processRequests();
 
     expect(instance.requesting).to.equal(true);
   });
