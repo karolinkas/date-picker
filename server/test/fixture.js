@@ -11,11 +11,11 @@
 var request = [{
         id: 1,
         type: "pdf",
-        processTime: 3000
+        processTime: 5000
     }, {
         id: 2,
         type: "pdf",
-        processTime: 3000    
+        processTime: 5000    
     }, {
         id: 3,
         type: "html",
@@ -37,27 +37,29 @@ var request = [{
         type: "html",
         processTime: 1000
     }, {
-        id: 2,
-        type: "pdf",
-        processTime: 3000    
-    },{
         id: 8,
         type: "html",
         processTime: 1000    
     }, {
         id: 9,
         type: "pdf",
-        processTime: 3000
+        processTime: 5000
     }, {
         id: 10,
         type: "html",
         processTime: 1000    
 }];
 
+/* 
+// Processing order
+
+'pdf #1', 'html #3', 'html #4', 'html #5', 'html #6', 'html #7','pdf #2', 'html #8', 'html #10', 'pdf #9'
+ */
+
 var expectedOrder = [{
     id: 1,
     type: "pdf",
-    processTime: 3000
+    processTime: 5000
 }, {
     id: 3,
     type: "html",
@@ -79,6 +81,10 @@ var expectedOrder = [{
     type: "html",
     processTime: 1000
 }, {
+    id: 2,
+    type: "pdf",
+    processTime: 5000
+}, {
     id: 8,
     type: "html",
     processTime: 1000    
@@ -89,7 +95,7 @@ var expectedOrder = [{
 }, {
     id: 9,
     type: "pdf",
-    processTime: 3000
+    processTime: 5000
 }];
 
 exports.expectedOrder = expectedOrder;

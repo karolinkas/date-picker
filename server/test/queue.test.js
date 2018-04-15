@@ -11,7 +11,7 @@ describe('Check all functionalities of request queue', function() {
   var request = {
     id: 1,
     type: "pdf",
-    processTime: 3000
+    processTime: 5000
   };
 
   it('should increase the length for the queue when adding new requests', function() {
@@ -63,10 +63,37 @@ describe('Check all functionalities of request queue', function() {
       processTime: 1000
     };
 
+    var last = {
+      id: 1,
+      type: "pdf",
+      processTime: 5000
+    };
+
     expect(instance.prioritise(fasterOne, last)).to.equal(fasterOne);
   });
 
-/*   it('should add sort multiple reqests in the correct order', function() {
+  it('should not prioritise when following request is taking longer', function() {
+
+    // by comparing the proccessing time of the last added element with the current one
+    var instance = new Queue();
+    var requests = [{
+      id: 1,
+      type: "html",
+      processTime: 1000
+    }, {
+      id: 2,
+      type: "pdf",
+      processTime: 5000
+    }];
+
+    requests.forEach(function(request) {
+      instance.addRequest(request);
+    });
+
+    expect(instance.queue).deep.equal(requests);
+  });
+
+   it('should add sort multiple reqests in the correct order', function() {
 
     // by comparing the proccessing time of the last added element with the current one
     var instance = new Queue();
@@ -74,8 +101,8 @@ describe('Check all functionalities of request queue', function() {
     fixture.exampleRequest.forEach(function (request){
       instance.addRequest(request);
     });
-
+    //console.log(instance.queue);
     expect(instance.queue).to.equal(fixture.expectedOrder);
-  }); */
+  });
 
 });

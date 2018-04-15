@@ -23,6 +23,10 @@ $ npm run testclient
 $ npm run testserver
 ```
 
+# Example request to add requests to the event queue
+```curl http://localhost:5000/file -H "Content-Type: application/json" -X POST -d '{"type": "pdf", "id": "1", "processTime": "3000"}'
+```
+
 go to [http://localhost:8080](http://localhost:8080) in your browser.
 
 

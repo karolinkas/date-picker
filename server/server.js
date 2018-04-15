@@ -17,7 +17,7 @@ app.post('/file', (req, res) => {
   queue.addRequest(req.body);
   queue.processRequests();
 
-  res.send('Request queue started');
+  res.send('Accepted');
 
 });
 
