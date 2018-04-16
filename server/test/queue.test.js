@@ -4,8 +4,6 @@ var fixture = require("./fixture.js");
 
 var expect  = require('chai').expect;
 
-//TODO: remove unused npm packages
-
 describe('Check all functionalities of request queue', function() {
 
   var request = {
@@ -48,7 +46,7 @@ describe('Check all functionalities of request queue', function() {
     var instance = new Queue();
 
     instance.addRequest(request);
-    instance.processRequests();
+    instance.processRequest();
 
     expect(instance.requesting).to.equal(true);
   });
@@ -100,9 +98,9 @@ describe('Check all functionalities of request queue', function() {
 
     fixture.exampleRequest.forEach(function (request){
       instance.addRequest(request);
+      instance.processRequest();
     });
-    //console.log(instance.queue);
-    expect(instance.queue).to.equal(fixture.expectedOrder);
+    expect(instance.queue).deep.equal(fixture.expectedOrder);
   });
 
 });

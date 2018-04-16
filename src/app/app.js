@@ -62,7 +62,7 @@ angular.module('app', [])
 				}
 				
 				$scope.updateDay = (day) => {
-					$scope.currentDate = moment($scope.currentDate).day(day);
+					$scope.currentDate = moment($scope.currentDate).date(day);
 				};
 
 				$scope.updateMonth = (month) => {

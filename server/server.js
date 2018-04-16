@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.post('/file', (req, res) => {
 
   queue.addRequest(req.body);
-  queue.processRequests();
+  queue.processRequest();
 
   res.send('Accepted');
 

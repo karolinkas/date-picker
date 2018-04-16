@@ -1,7 +1,5 @@
 function fileConversion (processTime){
 
-    console.log("processing");
-
     return new Promise(function(resolve, reject){
         setTimeout(function(){
             resolve("resolved");
@@ -14,6 +12,9 @@ function Queue () {
     
     this.queue = [];
     this.requesting = false;
+    this.delay = 0;
+    this.fastConversion = 1000;
+    this.slowConversion = 5000;
 
     this.validRequest = function (request) {
 
@@ -31,22 +32,18 @@ function Queue () {
 
 };
 
-Queue.prototype.processRequests = function (request) {
+Queue.prototype.processRequest = function () {
 
     this.requesting = true;
     var that = this;
 
-    const promises =  this.queue.map( function (request) {
+    const firstInQueue = this.queue[0];
         
-        return fileConversion(request.processTime).then(function (){
+    fileConversion(firstInQueue).then(function (){
             console.log("conversion done");
             that.queue.pop();
-            return request;
-        });
-        
     });
-
-    return promises;
+        
 }
 
 Queue.prototype.addRequest = function (request) {
@@ -57,9 +54,15 @@ Queue.prototype.addRequest = function (request) {
                 const priority = this.prioritise(request, this.getLast());
                 if (priority){
                     // switch position between prioritised element and last element
+                    this.delay += 1000;
                     const removeLast = this.queue.pop();
                     this.queue.push(priority);
                     this.queue.push(removeLast);
+
+                    //after slow conversion is done bring in response
+                    if (this.delay === this.slowConversion + 1000){
+                        this.preempt(this.queue, this.queue.length - 2, this.queue.length - 1);
+                    }
                 } else{  
                     this.queue.push(request);
                 }
@@ -70,7 +73,12 @@ Queue.prototype.addRequest = function (request) {
     } catch (message){
         throw new Error(message);
     }
+};
 
+Queue.prototype.preempt = function (array, indexA, indexB) {
+    const temp = array[indexA];
+    array[indexA] = array[indexB];
+    array[indexB] = temp;
 };
 
 
